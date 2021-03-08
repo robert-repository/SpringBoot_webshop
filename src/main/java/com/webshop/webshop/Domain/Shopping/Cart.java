@@ -1,4 +1,4 @@
-package com.webshop.webshop.Domain;
+package com.webshop.webshop.Domain.Shopping;
 
 public class Cart {
     int quantity;

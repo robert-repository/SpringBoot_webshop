@@ -1,5 +1,6 @@
-package com.webshop.webshop.Domain;
+package com.webshop.webshop.Domain.Shopping;
 
+import com.webshop.webshop.Domain.Product.Stock;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +16,10 @@ public class Product {
         this.productNumber = productNumber;
         this.description = description;
         this.price = price;
+    }
+
+    public Product() {
+
     }
 
     public String getProductNumber() {

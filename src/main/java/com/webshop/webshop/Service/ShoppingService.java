@@ -1,7 +1,7 @@
 package com.webshop.webshop.Service;
 
-import com.webshop.webshop.Domain.Product;
-import com.webshop.webshop.Domain.ShoppingCart;
+import com.webshop.webshop.Domain.Shopping.Product;
+import com.webshop.webshop.Domain.Shopping.ShoppingCart;
 import com.webshop.webshop.Repository.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,8 @@ public class ShoppingService {
     ProductService productService;
     @Autowired
     ShoppingCartRepository shoppingCartRepository;
+    @Autowired
+    OrderService orderService;
 
     public void addToCart(String cartId, String productNumber, int quantity) {
         Product product = productService.getProduct(productNumber);
@@ -22,8 +24,7 @@ public class ShoppingService {
             ShoppingCart cart = cartOptional.get();
             cart.addToCart(product, quantity);
             shoppingCartRepository.save(cart);
-        }
-        else if (product != null) {
+        } else if (product != null) {
             ShoppingCart cart = new ShoppingCart();
             cart.setCardId(cartId);
             cart.addToCart(product, quantity);
@@ -33,9 +34,13 @@ public class ShoppingService {
 
     public ShoppingCart getCart(String cartId) {
         Optional<ShoppingCart> cart = shoppingCartRepository.findById(cartId);
-        if (cart.isPresent())
-            return cart.get();
-        else
-            return null;
+        return cart.orElse(null);
+    }
+
+    public void checkOut(String cardId) {
+        Optional<ShoppingCart> cart = shoppingCartRepository.findById(cardId);
+        if (cart.isPresent()) {
+            orderService.createOrder(cart.get());
+        }
     }
 }

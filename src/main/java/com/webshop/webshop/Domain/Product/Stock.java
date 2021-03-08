@@ -1,4 +1,4 @@
-package com.webshop.webshop.Domain;
+package com.webshop.webshop.Domain.Product;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -26,5 +26,9 @@ public class Stock {
 
     public void setLocationCode(String locationCode) {
         this.locationCode = locationCode;
+    }
+
+    public void print() {
+        System.out.println("Stock quantity: " + quantity + " , location code : " + locationCode);
     }
 }

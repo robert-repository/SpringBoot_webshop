@@ -1,7 +1,7 @@
 package com.webshop.webshop.Service;
 
-import com.webshop.webshop.Domain.Product;
-import com.webshop.webshop.Domain.Stock;
+import com.webshop.webshop.Domain.Shopping.Product;
+import com.webshop.webshop.Domain.Product.Stock;
 import com.webshop.webshop.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +20,7 @@ public class ProductService {
     }
     public Product getProduct(String productNumber) {
         Optional<Product> result = productRepository.findById(productNumber);
-        if (result.isPresent())
-            return result.get();
-        else
-            return null;
+        return result.orElse(null);
     }
     public void setStock(String productNumber, int quantity, String locationCode) {
         Optional<Product> result = productRepository.findById(productNumber);
